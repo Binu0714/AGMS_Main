@@ -20,7 +20,12 @@ public class ZoneController {
     }
 
     @GetMapping
-    public List<ZoneDTO> getAllZones() { return zoneService.findAll(); }
+    public ResponseEntity<ApiResponse> getAllZones() {
+        List<ZoneDTO> zones = zoneService.findAll();
+        return ResponseEntity.ok(
+                new ApiResponse(200, "Success", zones)
+        );
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse> getZone(@PathVariable String id) {

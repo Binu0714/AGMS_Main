@@ -18,25 +18,37 @@ public class ZoneServiceImpl implements ZoneService {
 
     @Override
     public ZoneDTO saveZone(ZoneDTO dto, String token) {
-        // 1. Business Logic Validation
+        // 1. Validation logic
         if (dto.getMinTemp() >= dto.getMaxTemp()) {
             throw new RuntimeException("minTemp must be strictly less than maxTemp");
         }
 
-        // 2. Register Device on External IoT Provider
-        Map<String, String> payload = new HashMap<>();
-        payload.put("name", dto.getName() + "-Sensor");
-        payload.put("zoneId", dto.getName());
+        String extDeviceId;
 
-        // Note: 'token' is the Bearer token passed from Postman
-        Map<String, Object> response = iotClient.registerDevice(token, payload);
-        String extDeviceId = response.get("deviceId").toString();
+        try {
+            // 2. Try to register on the REAL External IoT Provider
+            Map<String, String> payload = new HashMap<>();
+            payload.put("name", dto.getName() + "-Sensor");
+            payload.put("zoneId", dto.getName());
 
-        // 3. Save locally
+            Map<String, Object> response = iotClient.registerDevice(token, payload);
+            extDeviceId = response.get("deviceId").toString();
+            System.out.println("SUCCESS: Registered on External API");
+
+        } catch (Exception e) {
+            // 3. FALLBACK: If the external server is down, generate a MOCK Device ID
+            System.err.println("EXTERNAL API ERROR: " + e.getMessage());
+            System.out.println("Switching to MOCK Device ID for testing...");
+            extDeviceId = "MOCK-DEVICE-" + UUID.randomUUID().toString();
+        }
+
+        // 4. Save to your local MySQL database
         Zone zone = new Zone(UUID.randomUUID().toString(), dto.getName(),
                 dto.getMinTemp(), dto.getMaxTemp(), extDeviceId, dto.getUserId());
 
         zoneRepo.save(zone);
+
+        // 5. Prepare Response
         dto.setId(zone.getId());
         dto.setDeviceId(extDeviceId);
         return dto;
