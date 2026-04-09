@@ -14,6 +14,9 @@ import reactor.core.publisher.Mono;
 public class AuthenticationFilter extends AbstractGatewayFilterFactory<AuthenticationFilter.Config> {
 
     @Autowired
+    private RouteValidator validator; // 1. Inject the validator
+
+    @Autowired
     private JwtUtil jwtUtil;
 
     public AuthenticationFilter() {
@@ -26,18 +29,25 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
     public GatewayFilter apply(Config config) {
         return (exchange, chain) -> {
 
-            String authHeader = exchange.getRequest().getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
+            // 2. Check if the current request needs a token
+            if (validator.isSecured.test(exchange.getRequest())) {
 
-            if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-                return onError(exchange, HttpStatus.UNAUTHORIZED);
+                // If SECURED, check for the header
+                if (!exchange.getRequest().getHeaders().containsKey(HttpHeaders.AUTHORIZATION)) {
+                    return onError(exchange, HttpStatus.UNAUTHORIZED);
+                }
+
+                String authHeader = exchange.getRequest().getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
+                if (authHeader != null && authHeader.startsWith("Bearer ")) {
+                    authHeader = authHeader.substring(7);
+                }
+
+                if (!jwtUtil.validateToken(authHeader)) {
+                    return onError(exchange, HttpStatus.UNAUTHORIZED);
+                }
             }
 
-            String token = authHeader.substring(7);
-
-            if (!jwtUtil.validateToken(token)) {
-                return onError(exchange, HttpStatus.UNAUTHORIZED);
-            }
-
+            // 3. If NOT secured (like register/login), just let it pass!
             return chain.filter(exchange);
         };
     }

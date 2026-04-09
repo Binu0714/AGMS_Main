@@ -1,0 +1,401 @@
+{
+  "info": {
+    "_postman_id": "4ad12656-cd13-484e-bb5f-1e953244bec1",
+    "name": "GMS",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "44984383",
+    "_collection_link": "https://go.postman.co/collection/44984383-4ad12656-cd13-484e-bb5f-1e953244bec1?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Auth Service",
+      "item": [
+        {
+          "name": "login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"username\": \"binuu\", \r\n  \"password\": \"123456\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/auth/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "register user",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"username\": \"binu_farmer\", \r\n  \"password\": \"123456\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/auth/register",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Zone Management",
+      "item": [
+        {
+          "name": "Create zone",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJiaW51dSIsImlhdCI6MTc3NTY3NzI1MCwiZXhwIjoxNzc1NzEzMjUwfQ.ZBhjhJJkREtNvdkzX05AziyE6lG0G3vjABjZ8A4tatc",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Tomato-Zone-Alpha\",\r\n    \"minTemp\": 20.0,\r\n    \"maxTemp\": 30.0,\r\n    \"userId\": \"binu_farmer\",\r\n    \"deviceId\": \"b751b8c9-644a-484c-ba3f-be63f9b27ad0\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/zones",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "zones"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get all zones",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "get zone by id",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "update zone",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJiaW51X2Zhcm1lciIsImlhdCI6MTc3NTcyNjU2MywiZXhwIjoxNzc1NzYyNTYzfQ.FewPKv_SvyV2ek-bm9kctZ5XsS3Rz9qoOaA6WXM_n8A",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Tomato-Zone-Alpha-Updated\",\r\n    \"minTemp\": 22.5,\r\n    \"maxTemp\": 32.5,\r\n    \"userId\": \"binu_farmer\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/zones/9ed47c74-7098-4a61-87dd-27432d4e9cf2",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "zones",
+                "9ed47c74-7098-4a61-87dd-27432d4e9cf2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete zone",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJiaW51X2Zhcm1lciIsImlhdCI6MTc3NTcyNjU2MywiZXhwIjoxNzc1NzYyNTYzfQ.FewPKv_SvyV2ek-bm9kctZ5XsS3Rz9qoOaA6WXM_n8A",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/zones/fd79cf04-b619-43a1-98ba-afc586842d4d",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "zones",
+                "fd79cf04-b619-43a1-98ba-afc586842d4d"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "sensor telemetry",
+      "item": [
+        {
+          "name": "get latest",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "register",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJiaW51X2Zhcm1lciIsImlhdCI6MTc3NTcyNjU2MywiZXhwIjoxNzc1NzYyNTYzfQ.FewPKv_SvyV2ek-bm9kctZ5XsS3Rz9qoOaA6WXM_n8A",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"New-Greenhouse-Sensor\",\r\n    \"zoneId\": \"5507634a-75d0-4b6c-a6ee-59ae6d1b9770\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/sensors/register",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "sensors",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Automation & Rule Engine",
+      "item": [
+        {
+          "name": "get logs",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "process",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJiaW51X2Zhcm1lciIsImlhdCI6MTc3NTcyNjU2MywiZXhwIjoxNzc1NzYyNTYzfQ.FewPKv_SvyV2ek-bm9kctZ5XsS3Rz9qoOaA6WXM_n8A",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"deviceId\": \"MOCK-DEVICE-ID\",\r\n    \"zoneId\": \"9ed47c74-7098-4a61-87dd-27432d4e9cf2\", \r\n    \"value\": {\r\n        \"temperature\": 38.5,\r\n        \"humidity\": 75.0\r\n    }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/automation/process",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "automation",
+                "process"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Crop Inventory",
+      "item": [
+        {
+          "name": "register crop",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJiaW51X2Zhcm1lciIsImlhdCI6MTc3NTcyNjU2MywiZXhwIjoxNzc1NzYyNTYzfQ.FewPKv_SvyV2ek-bm9kctZ5XsS3Rz9qoOaA6WXM_n8A",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"id\": \"CROP-01\",\r\n    \"cropName\": \"Organic Red Tomatoes\",\r\n    \"quantity\": 150,\r\n    \"userId\": \"binu_farmer\",\r\n    \"status\": \"SEEDLING\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/crops",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "crops"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get crops",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "update lifecycle",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJiaW51X2Zhcm1lciIsImlhdCI6MTc3NTcyNjU2MywiZXhwIjoxNzc1NzYyNTYzfQ.FewPKv_SvyV2ek-bm9kctZ5XsS3Rz9qoOaA6WXM_n8A",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/crops/CROP-01/status?status=VEGETATIVE",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "crops",
+                "CROP-01",
+                "status"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "VEGETATIVE"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
